@@ -45,6 +45,9 @@ to copy this object's content to some other location
 and `copyFromAsset(Context, String)` to populate this object's content from
 some other source
 
+[JavaDocs are available](http://javadocs.commonsware.com/cwac/document/index.html)
+for your JavaDocing pleasure.
+
 ## What Is Supported
 
 In effect, there are four types of `DocumentFileCompat`:
@@ -138,4 +141,4 @@ Do not ask for help via social media.
 
 ## Release Notes
 
-TBD
+- v0.1.1: initial release
