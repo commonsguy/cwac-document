@@ -1,0 +1,80 @@
+apply plugin: 'com.android.library'
+
+dependencies {
+    compile 'com.android.support:support-annotations:25.3.0'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+    androidTestCompile 'com.android.support:support-v4:25.3.0'
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 25
+        testApplicationId "com.commonsware.cwac.document.test"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            testCoverageEnabled = true
+        }
+    }
+}
+
+if (project.hasProperty('PUBLISH_GROUP_ID')) {
+    // from http://stackoverflow.com/a/19484146/115145
+
+    android.libraryVariants.all { variant ->
+        def name = variant.buildType.name
+        if (name.equals(com.android.builder.core.BuilderConstants.DEBUG)) {
+            return; // Skip debug builds.
+        }
+        def task = project.tasks.create "jar${name.capitalize()}", Jar
+        task.dependsOn variant.javaCompile
+        task.from variant.javaCompile.destinationDir
+        task.baseName = "cwac-${PUBLISH_ARTIFACT_ID}"
+        task.version = PUBLISH_VERSION
+        task.exclude('com/commonsware/cwac/**/BuildConfig.**')
+    }
+
+    // based on http://stackoverflow.com/a/23672732/115145
+
+    android.libraryVariants.all { variant ->
+        task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+            description "Generates Javadoc for $variant.name."
+            source = variant.javaCompile.source
+            ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+            classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
+            exclude '**/BuildConfig.java'
+            exclude '**/R.java'
+            exclude '**/config/*.java'
+            exclude '**/conscrypt/*.java'
+            exclude '**/internalutil/*.java'
+            exclude '**/luni/*.java'
+        }
+    }
+
+    task sourcesJar(type: Jar) {
+        from android.sourceSets.main.java.srcDirs
+        classifier = 'sources'
+    }
+
+    artifacts {
+        archives sourcesJar
+    }
+
+    apply plugin: 'maven'
+
+    uploadArchives {
+        repositories.mavenDeployer {
+            pom.groupId = PUBLISH_GROUP_ID
+            pom.artifactId = PUBLISH_ARTIFACT_ID
+            pom.version = PUBLISH_VERSION
+
+            repository(url: LOCAL_REPO)
+        }
+    }
+}
