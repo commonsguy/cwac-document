@@ -19,6 +19,7 @@ package com.commonsware.cwac.document;
 
 import android.content.Context;
 import android.net.Uri;
+import android.webkit.MimeTypeMap;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -146,5 +147,10 @@ class SingleLegacyDocumentFile extends DocumentFileCompat {
     public OutputStream openOutputStream()
       throws FileNotFoundException {
         return mContext.getContentResolver().openOutputStream(getUri());
+    }
+
+    @Override
+    public String getExtension() {
+        return(MimeTypeMap.getSingleton().getExtensionFromMimeType(getType()));
     }
 }

@@ -21,6 +21,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.RequiresApi;
+import android.webkit.MimeTypeMap;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -141,5 +142,10 @@ class TreeDocumentFile extends DocumentFileCompat {
     public OutputStream openOutputStream()
       throws FileNotFoundException {
         throw new UnsupportedOperationException("Cannot open a stream on a tree");
+    }
+
+    @Override
+    public String getExtension() {
+        return(null);
     }
 }

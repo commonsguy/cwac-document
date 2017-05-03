@@ -21,6 +21,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.RequiresApi;
+import android.webkit.MimeTypeMap;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -125,5 +126,10 @@ class SingleDocumentFile extends DocumentFileCompat {
     @Override
     public OutputStream openOutputStream() throws FileNotFoundException {
         return mContext.getContentResolver().openOutputStream(getUri());
+    }
+
+    @Override
+    public String getExtension() {
+        return(MimeTypeMap.getSingleton().getExtensionFromMimeType(getType()));
     }
 }

@@ -164,6 +164,22 @@ class RawDocumentFile extends DocumentFileCompat {
         return new FileOutputStream(mFile);
     }
 
+    // inspired by http://stackoverflow.com/a/3571239/115145
+
+    @Override
+    public String getExtension() {
+        String name=mFile.getName();
+        String extension="";
+
+        int i=name.lastIndexOf('.');
+
+        if (i > 0) {
+            extension=name.substring(i+1);
+        }
+
+        return extension;
+    }
+
     private static String getTypeForName(String name) {
         final int lastDot = name.lastIndexOf('.');
         if (lastDot >= 0) {

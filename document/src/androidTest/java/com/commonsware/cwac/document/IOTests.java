@@ -70,6 +70,7 @@ public class IOTests {
     assertTrue(f.exists());
     assertTrue(df.exists());
     assertTrue(isEqual(df.openInputStream(), ctxt.getAssets().open("test.pdf")));
+    assertEquals(df.getExtension(), "pdf");
   }
 
   @Test
@@ -118,6 +119,7 @@ public class IOTests {
     assertTrue(df.isFile());
     assertFalse(df.isVirtual());
     assertEquals(df.getType(), "application/pdf");
+    assertEquals(df.getExtension(), "pdf");
 
     File f2=new File(ctxt.getFilesDir(), TESTFILE2);
 

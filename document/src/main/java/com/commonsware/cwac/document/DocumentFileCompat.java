@@ -381,6 +381,13 @@ public abstract class DocumentFileCompat {
     public abstract OutputStream openOutputStream() throws FileNotFoundException;
 
     /**
+     * @return a file extension suitable for the content identified by the
+     * underlying file or Uri, null if this is a tree, or the empty string
+     * if the content is identified by a file and the file lacks an extension
+     */
+    public abstract String getExtension();
+
+    /**
      * Copies the content represented by this object to the supplied
      * OutputStream. Only works if you have read access to the content.
      *
