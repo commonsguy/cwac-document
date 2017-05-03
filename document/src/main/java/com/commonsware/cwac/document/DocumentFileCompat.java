@@ -117,10 +117,26 @@ public abstract class DocumentFileCompat {
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static DocumentFileCompat fromSingleUri(Context context, Uri singleUri) {
         final int version = Build.VERSION.SDK_INT;
-        if (version >= 19 && isDocumentUri(context, singleUri)) {
+        if (ContentResolver.SCHEME_CONTENT.equals(singleUri.getScheme())) {
+          if (version>=19 && isDocumentUri(context, singleUri)) {
             return new SingleDocumentFile(null, context, singleUri);
-        } else {
+          }
+          else {
             return new SingleLegacyDocumentFile(null, context, singleUri);
+          }
+        }
+        else if (ContentResolver.SCHEME_FILE.equals(singleUri.getScheme())) {
+          File f=new File(singleUri.getPath());
+
+          if (f.exists() && f.isDirectory()) {
+            throw new IllegalArgumentException("Cannot create a DocumentFileCompat for a directory");
+          }
+          else {
+            return new RawDocumentFile(null, f);
+          }
+        }
+        else {
+          throw new IllegalArgumentException("Could not create a DocumentFileCompat for scheme:"+singleUri.getScheme());
         }
     }
 

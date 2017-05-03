@@ -74,6 +74,24 @@ public class IOTests {
   }
 
   @Test
+  public void testFileUri() throws IOException {
+    File f=new File(ctxt.getFilesDir(), TESTFILE);
+
+    assertFalse(f.exists());
+
+    DocumentFileCompat df=DocumentFileCompat.fromSingleUri(ctxt, Uri.fromFile(f));
+
+    assertFalse(df.exists());
+
+    df.copyFromAsset(ctxt, "test.pdf");
+
+    assertTrue(f.exists());
+    assertTrue(df.exists());
+    assertTrue(isEqual(df.openInputStream(), ctxt.getAssets().open("test.pdf")));
+    assertEquals(df.getExtension(), "pdf");
+  }
+
+  @Test
   public void testLegacy() throws IOException {
     testBuilder(new DocumentFileCompatBuilder() {
       @Override
