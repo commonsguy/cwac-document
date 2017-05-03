@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.commonsware.cwac:document:0.1.1'
+    compile 'com.commonsware.cwac:document:0.2.0'
 }
 ```
 
@@ -33,7 +33,10 @@ Just switch your `import` statement to pull in
 There are three `static` methods on both `DocumentFile` and `DocumentFileCompat`
 for creating your initial instance: `fromFile()`, `fromSingleUri()`,
 and `fromTreeUri()`. `DocumentFileCompat` extends `fromSingleUri()`
-support to older devices and non-document `Uri` values.
+support to older devices and non-document `Uri` values. Also, `fromSingleUri()` on
+`DocumentFileCompat`
+supports `Uri` values with `file` schemes, where those `Uri` values point
+to a single file.
 
 `DocumentFileCompat` also adds a number of convenience methods:
 
@@ -44,6 +47,8 @@ to copy this object's content to some other location
 - `copyFrom(InputStream)`, `copyFrom(File)`, `copyFrom(DocumentFileCompat)`,
 and `copyFromAsset(Context, String)` to populate this object's content from
 some other source
+- `getExtension()` will try to return a usable file extension, either from the
+filesystem path or based on the MIME type
 
 [JavaDocs are available](http://javadocs.commonsware.com/cwac/document/index.html)
 for your JavaDocing pleasure.
@@ -59,7 +64,7 @@ In effect, there are four types of `DocumentFileCompat`:
 - One created via `fromSingleUri()`, where either the app is running on an older
 device or the `Uri` is not a document `Uri` (but *is* one that supports
 the `OpenableColumns`, such as one retrieved from an activity supporting
-`CATEGORY_OPENABLE`)
+`CATEGORY_OPENABLE`, or has a `file` scheme)
 
 The last bullet is the scenario added by `DocumentFileCompat`, over what is
 supported by `DocumentFile`.
@@ -79,6 +84,7 @@ is supported with a fixed return value:
 |`createFile()`      |yes         |yes            |no                              |no|
 |`delete()`          |yes         |yes            |yes                             |no|
 |`exists()`          |yes         |yes            |yes                             |yes (returns `canRead()`)|
+|`getExtension()`    |yes         |yes            |yes                             |yes|
 |`getName()`         |yes         |yes            |yes                             |yes|
 |`getParentFile()`   |yes         |yes            |yes                             |yes|
 |`getType()`         |yes         |yes            |yes                             |yes|
@@ -103,7 +109,7 @@ dependencies.
 
 ## Version
 
-The current version is **0.1.1**.
+The current version is **0.2.0**.
 
 ## Demo
 
@@ -141,4 +147,9 @@ Do not ask for help via social media.
 
 ## Release Notes
 
+- v0.2.0
+    - [dropped `minSdkVersion` to 10](https://github.com/commonsguy/cwac-document/issues/1)
+    - [added disk synchronization when copying to files](https://github.com/commonsguy/cwac-document/issues/3)
+    - [added `getExtension()`](https://github.com/commonsguy/cwac-document/issues/4)
+    - [added `file` support in `fromSingleUri()`](https://github.com/commonsguy/cwac-document/issues/5)
 - v0.1.1: initial release
