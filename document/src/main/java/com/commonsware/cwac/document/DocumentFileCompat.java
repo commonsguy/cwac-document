@@ -473,6 +473,12 @@ public abstract class DocumentFileCompat {
         }
         finally {
             in.close();
+            out.flush();
+
+            if (out instanceof FileOutputStream) {
+                ((FileOutputStream)out).getFD().sync();
+            }
+
             out.close();
         }
     }
