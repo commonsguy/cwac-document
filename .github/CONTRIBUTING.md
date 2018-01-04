@@ -24,11 +24,11 @@ but it needs to be fixed upstream as well.
 If you feel that your issue represents a security flaw, contact
 [security@commonsware.com](mailto:security@commonsware.com). Please
 provide the information requested in
-[the "Contributing Bug Reports" section](https://github.com/commonsguy/cwac-netsecurity/blob/master/.github/CONTRIBUTING.md#contributing-bug-reports).
+[the "Contributing Bug Reports" section](https://github.com/commonsguy/cwac-document/blob/master/.github/CONTRIBUTING.md#contributing-bug-reports).
 
 ## Contributing Feature Requests
 
-If you have an idea for how to make the library better, feel free to file an [issue](https://github.com/commonsguy/cwac-cam2/issues).
+If you have an idea for how to make the library better, feel free to file an [issue](https://github.com/commonsguy/cwac-document/issues).
 You will have better luck in getting the feature implemented if you can "sell" the library author
 on how this feature will help the library author.
 
