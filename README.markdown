@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.commonsware.cwac:document:0.2.0'
+    compile 'com.commonsware.cwac:document:0.3.0'
 }
 ```
 
@@ -109,7 +109,12 @@ dependencies.
 
 ## Version
 
-The current version is **0.2.0**.
+The current version is **0.3.0**. However, this uses a current version of
+`com.android.support:support-annotations`, which (inexplicably) requires
+a `minSdkVersion` of `14`.
+
+If you want to use this library on older devices, either use version `0.2.0`
+or override the library's `minSdkVersion`.
 
 ## Demo
 
@@ -147,6 +152,7 @@ Do not ask for help via social media.
 
 ## Release Notes
 
+- v0.3.0: updated to current dependencies, raised `minSdkVersion` back to 14
 - v0.2.0
     - [dropped `minSdkVersion` to 10](https://github.com/commonsguy/cwac-document/issues/1)
     - [added disk synchronization when copying to files](https://github.com/commonsguy/cwac-document/issues/3)
