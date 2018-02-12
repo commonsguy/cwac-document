@@ -40,13 +40,15 @@ class TreeDocumentFile extends DocumentFileCompat {
     }
 
     @Override
-    public DocumentFileCompat createFile(String mimeType, String displayName) {
+    public DocumentFileCompat createFile(String mimeType, String displayName)
+      throws FileNotFoundException {
         final Uri result = DocumentsContractApi21.createFile(mContext, mUri, mimeType, displayName);
         return (result != null) ? new TreeDocumentFile(this, mContext, result) : null;
     }
 
     @Override
-    public DocumentFileCompat createDirectory(String displayName) {
+    public DocumentFileCompat createDirectory(String displayName)
+      throws FileNotFoundException {
         final Uri result = DocumentsContractApi21.createDirectory(mContext, mUri, displayName);
         return (result != null) ? new TreeDocumentFile(this, mContext, result) : null;
     }
@@ -102,7 +104,7 @@ class TreeDocumentFile extends DocumentFileCompat {
     }
 
     @Override
-    public boolean delete() {
+    public boolean delete() throws FileNotFoundException {
         return DocumentsContractApi19.delete(mContext, mUri);
     }
 
@@ -122,7 +124,7 @@ class TreeDocumentFile extends DocumentFileCompat {
     }
 
     @Override
-    public boolean renameTo(String displayName) {
+    public boolean renameTo(String displayName) throws FileNotFoundException {
         final Uri result = DocumentsContractApi21.renameTo(mContext, mUri, displayName);
         if (result != null) {
             mUri = result;
