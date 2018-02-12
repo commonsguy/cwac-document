@@ -188,7 +188,8 @@ public abstract class DocumentFileCompat {
      * @see android.provider.DocumentsContract#createDocument(ContentResolver,
      *      Uri, String, String)
      */
-    public abstract DocumentFileCompat createFile(String mimeType, String displayName);
+    public abstract DocumentFileCompat createFile(String mimeType, String displayName)
+      throws FileNotFoundException;
 
     /**
      * Create a new directory as a direct child of this directory.
@@ -200,7 +201,8 @@ public abstract class DocumentFileCompat {
      * @see android.provider.DocumentsContract#createDocument(ContentResolver,
      *      Uri, String, String)
      */
-    public abstract DocumentFileCompat createDirectory(String displayName);
+    public abstract DocumentFileCompat createDirectory(String displayName)
+      throws FileNotFoundException;
 
     /**
      * Return a Uri for the underlying document represented by this file. This
@@ -318,7 +320,7 @@ public abstract class DocumentFileCompat {
      * @see android.provider.DocumentsContract#deleteDocument(ContentResolver,
      *      Uri)
      */
-    public abstract boolean delete();
+    public abstract boolean delete() throws FileNotFoundException;
 
     /**
      * Returns a boolean indicating whether this file can be found.
@@ -376,7 +378,8 @@ public abstract class DocumentFileCompat {
      * @see android.provider.DocumentsContract#renameDocument(ContentResolver,
      *      Uri, String)
      */
-    public abstract boolean renameTo(String displayName);
+    public abstract boolean renameTo(String displayName)
+      throws FileNotFoundException;
 
     /**
      * Opens an InputStream on the content represented by the underlying file

@@ -28,6 +28,7 @@ import android.provider.DocumentsContract;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Log;
+import java.io.FileNotFoundException;
 
 @RequiresApi(19)
 @TargetApi(19)
@@ -139,7 +140,8 @@ class DocumentsContractApi19 {
         return false;
     }
 
-    public static boolean delete(Context context, Uri self) {
+    public static boolean delete(Context context, Uri self)
+      throws FileNotFoundException {
         return DocumentsContract.deleteDocument(context.getContentResolver(), self);
     }
 

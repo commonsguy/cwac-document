@@ -26,6 +26,7 @@ import android.provider.DocumentsContract;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 @RequiresApi(21)
@@ -34,12 +35,13 @@ class DocumentsContractApi21 {
     private static final String TAG = "DocumentFileCompat";
 
     public static Uri createFile(Context context, Uri self, String mimeType,
-            String displayName) {
+            String displayName) throws FileNotFoundException {
         return DocumentsContract.createDocument(context.getContentResolver(), self, mimeType,
                 displayName);
     }
 
-    public static Uri createDirectory(Context context, Uri self, String displayName) {
+    public static Uri createDirectory(Context context, Uri self, String displayName)
+      throws FileNotFoundException {
         return createFile(context, self, DocumentsContract.Document.MIME_TYPE_DIR, displayName);
     }
 
@@ -73,7 +75,8 @@ class DocumentsContractApi21 {
         return results.toArray(new Uri[results.size()]);
     }
 
-    public static Uri renameTo(Context context, Uri self, String displayName) {
+    public static Uri renameTo(Context context, Uri self, String displayName)
+      throws FileNotFoundException {
         return DocumentsContract.renameDocument(context.getContentResolver(), self, displayName);
     }
 

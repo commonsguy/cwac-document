@@ -99,7 +99,7 @@ class SingleDocumentFile extends DocumentFileCompat {
     }
 
     @Override
-    public boolean delete() {
+    public boolean delete() throws FileNotFoundException {
         return DocumentsContractApi19.delete(mContext, mUri);
     }
 
