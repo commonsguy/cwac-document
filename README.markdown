@@ -9,7 +9,7 @@ only supports working with document `Uri` values on API Level 19+,
 
 The artifact for this library is distributed via the CWAC repository,
 so you will need to configure that in your module's `build.gradle` file,
-along with your `compile` statement:
+along with your `implementation` or `api` statement:
 
 ```groovy
 repositories {
@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.commonsware.cwac:document:0.3.0'
+    implementation 'com.commonsware.cwac:document:0.4.0'
 }
 ```
 
@@ -109,7 +109,7 @@ dependencies.
 
 ## Version
 
-The current version is **0.3.0**. However, this uses a current version of
+The current version is **0.4.0**. However, this uses a current version of
 `com.android.support:support-annotations`, which (inexplicably) requires
 a `minSdkVersion` of `14`.
 
@@ -152,6 +152,7 @@ Do not ask for help via social media.
 
 ## Release Notes
 
+- v0.4.0: bug fix, to allow `listFiles()` on a tree to return proper `DocumentFileCompat` objects based on the document's type (regular or tree)
 - v0.3.0: updated to current dependencies, raised `minSdkVersion` back to 14
 - v0.2.0
     - [dropped `minSdkVersion` to 10](https://github.com/commonsguy/cwac-document/issues/1)
