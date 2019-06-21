@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
- * Modifications (C) 2017 CommonsWare, LLC
+ * Modifications (C) 2017-2019 CommonsWare, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -115,11 +115,19 @@ class TreeDocumentFile extends DocumentFileCompat {
 
     @Override
     public DocumentFileCompat[] listFiles() {
-        final Uri[] result = DocumentsContractApi21.listFiles(mContext, mUri);
-        final DocumentFileCompat[] resultFiles = new DocumentFileCompat[result.length];
-        for (int i = 0; i < result.length; i++) {
-            resultFiles[i] = new TreeDocumentFile(this, mContext, result[i]);
+        final Uri[] resultDocs = DocumentsContractApi21.listContent(mContext, mUri, false);
+        final Uri[] resultTrees = DocumentsContractApi21.listContent(mContext, mUri, true);
+        final DocumentFileCompat[] resultFiles =
+          new DocumentFileCompat[resultDocs.length + resultTrees.length];
+
+        for (int i = 0; i < resultTrees.length; i++) {
+            resultFiles[i] = new TreeDocumentFile(this, mContext, resultTrees[i]);
         }
+
+        for (int i = 0; i < resultDocs.length; i++) {
+            resultFiles[i + resultTrees.length] = new SingleDocumentFile(this, mContext, resultDocs[i]);
+        }
+
         return resultFiles;
     }
 

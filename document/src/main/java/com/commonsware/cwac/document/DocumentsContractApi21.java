@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
- * Modifications (C) 2017 CommonsWare, LLC
+ * Modifications (C) 2017-2019 CommonsWare, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,9 @@ import java.util.ArrayList;
 @TargetApi(21)
 class DocumentsContractApi21 {
     private static final String TAG = "DocumentFileCompat";
+    private static final String[] LIST_PROJECTION = new String[] {
+      DocumentsContract.Document.COLUMN_DOCUMENT_ID,
+      DocumentsContract.Document.COLUMN_MIME_TYPE };
 
     public static Uri createFile(Context context, Uri self, String mimeType,
             String displayName) throws FileNotFoundException {
@@ -50,7 +53,7 @@ class DocumentsContractApi21 {
                 DocumentsContract.getTreeDocumentId(treeUri));
     }
 
-    public static Uri[] listFiles(Context context, Uri self) {
+    public static Uri[] listContent(Context context, Uri self, boolean trees) {
         final ContentResolver resolver = context.getContentResolver();
         final Uri childrenUri = DocumentsContract.buildChildDocumentsUriUsingTree(self,
                 DocumentsContract.getDocumentId(self));
@@ -58,13 +61,18 @@ class DocumentsContractApi21 {
 
         Cursor c = null;
         try {
-            c = resolver.query(childrenUri, new String[] {
-                    DocumentsContract.Document.COLUMN_DOCUMENT_ID }, null, null, null);
+            c = resolver.query(childrenUri, LIST_PROJECTION, null, null, null);
             while (c.moveToNext()) {
-                final String documentId = c.getString(0);
-                final Uri documentUri = DocumentsContract.buildDocumentUriUsingTree(self,
+                final boolean isDirectory =
+                  DocumentsContract.Document.MIME_TYPE_DIR.equals(c.getString(1));
+
+                if (isDirectory && trees || !isDirectory && !trees) {
+                    final String documentId = c.getString(0);
+                    final Uri documentUri =
+                      DocumentsContract.buildDocumentUriUsingTree(self,
                         documentId);
-                results.add(documentUri);
+                    results.add(documentUri);
+                }
             }
         } catch (Exception e) {
             Log.w(TAG, "Failed query: " + e);
