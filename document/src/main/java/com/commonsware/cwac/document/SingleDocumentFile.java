@@ -20,6 +20,7 @@ package com.commonsware.cwac.document;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.webkit.MimeTypeMap;
 import java.io.FileNotFoundException;
@@ -114,8 +115,21 @@ class SingleDocumentFile extends DocumentFileCompat {
     }
 
     @Override
-    public boolean renameTo(String displayName) {
-        throw new UnsupportedOperationException();
+    public boolean renameTo(String displayName) throws FileNotFoundException {
+        if (Build.VERSION.SDK_INT >= 21) {
+            final Uri result =
+              DocumentsContractApi21.renameTo(mContext, mUri, displayName);
+            if (result != null) {
+                mUri = result;
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            throw new UnsupportedOperationException();
+        }
     }
 
     @Override
