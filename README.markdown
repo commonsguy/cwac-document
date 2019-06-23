@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.commonsware.cwac:document:0.4.0'
+    implementation 'com.commonsware.cwac:document:0.4.1'
 }
 ```
 
@@ -97,7 +97,7 @@ is supported with a fixed return value:
 |`listFiles()`       |yes         |yes            |no                              |no|
 |`openInputStream()` |yes         |no             |yes                             |yes|
 |`openOutputStream()`|yes         |no             |yes                             |yes|
-|`renameTo()`        |yes         |yes            |no                              |no|
+|`renameTo()`        |yes         |yes            |yes (API Level 21+)                              |no|
 
 `findFile()` is supported if `listFiles()` is supported.
 
@@ -109,7 +109,7 @@ dependencies.
 
 ## Version
 
-The current version is **0.4.0**. However, this uses a current version of
+The current version is **0.4.1**. However, this uses a current version of
 `com.android.support:support-annotations`, which (inexplicably) requires
 a `minSdkVersion` of `14`.
 
@@ -152,6 +152,7 @@ Do not ask for help via social media.
 
 ## Release Notes
 
+- v0.4.1: restored `renameTo()` for `SingleDocumentFile`
 - v0.4.0: bug fix, to allow `listFiles()` on a tree to return proper `DocumentFileCompat` objects based on the document's type (regular or tree)
 - v0.3.0: updated to current dependencies, raised `minSdkVersion` back to 14
 - v0.2.0
