@@ -20,10 +20,9 @@ package com.commonsware.cwac.document;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.RequiresApi;
-import android.webkit.MimeTypeMap;
+import androidx.annotation.RequiresApi;
+
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -41,14 +40,14 @@ class TreeDocumentFile extends DocumentFileCompat {
 
     @Override
     public DocumentFileCompat createFile(String mimeType, String displayName)
-      throws FileNotFoundException {
+            throws FileNotFoundException {
         final Uri result = DocumentsContractApi21.createFile(mContext, mUri, mimeType, displayName);
         return (result != null) ? new TreeDocumentFile(this, mContext, result) : null;
     }
 
     @Override
     public DocumentFileCompat createDirectory(String displayName)
-      throws FileNotFoundException {
+            throws FileNotFoundException {
         final Uri result = DocumentsContractApi21.createDirectory(mContext, mUri, displayName);
         return (result != null) ? new TreeDocumentFile(this, mContext, result) : null;
     }
@@ -118,7 +117,7 @@ class TreeDocumentFile extends DocumentFileCompat {
         final Uri[] resultDocs = DocumentsContractApi21.listContent(mContext, mUri, false);
         final Uri[] resultTrees = DocumentsContractApi21.listContent(mContext, mUri, true);
         final DocumentFileCompat[] resultFiles =
-          new DocumentFileCompat[resultDocs.length + resultTrees.length];
+                new DocumentFileCompat[resultDocs.length + resultTrees.length];
 
         for (int i = 0; i < resultTrees.length; i++) {
             resultFiles[i] = new TreeDocumentFile(this, mContext, resultTrees[i]);
@@ -144,18 +143,18 @@ class TreeDocumentFile extends DocumentFileCompat {
 
     @Override
     public InputStream openInputStream()
-      throws FileNotFoundException {
+            throws FileNotFoundException {
         throw new UnsupportedOperationException("Cannot open a stream on a tree");
     }
 
     @Override
     public OutputStream openOutputStream()
-      throws FileNotFoundException {
+            throws FileNotFoundException {
         throw new UnsupportedOperationException("Cannot open a stream on a tree");
     }
 
     @Override
     public String getExtension() {
-        return(null);
+        return (null);
     }
 }

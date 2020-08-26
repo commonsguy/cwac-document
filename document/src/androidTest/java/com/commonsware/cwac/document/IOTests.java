@@ -19,22 +19,17 @@ package com.commonsware.cwac.document;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
-import android.support.v4.content.FileProvider;
+import androidx.core.content.FileProvider;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import java.io.DataInputStream;
-import java.io.EOFException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+
+import java.io.*;
+
+import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
 public class IOTests {
@@ -46,7 +41,7 @@ public class IOTests {
 
   @Before
   public void init() {
-    ctxt=InstrumentationRegistry.getContext();
+    ctxt= InstrumentationRegistry.getContext();
   }
 
   @After
@@ -118,7 +113,7 @@ public class IOTests {
 
     assertFalse(f.exists());
 
-    Uri test=FileProvider.getUriForFile(ctxt, AUTHORITY, f);
+    Uri test= FileProvider.getUriForFile(ctxt, AUTHORITY, f);
     DocumentFileCompat df=builder.buildFrom(ctxt, test);
 
     assertFalse(df.exists());

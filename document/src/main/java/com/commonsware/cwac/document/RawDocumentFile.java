@@ -17,7 +17,6 @@
 
 package com.commonsware.cwac.document;
 
-import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
