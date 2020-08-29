@@ -9,11 +9,11 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 28
+        targetSdkVersion 30
         testApplicationId "com.commonsware.cwac.document.test"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
