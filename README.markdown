@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.commonsware.cwac:document:0.4.1'
+    implementation 'com.commonsware.cwac:document:0.5.0'
 }
 ```
 
@@ -103,18 +103,12 @@ is supported with a fixed return value:
 
 ## Dependencies
 
-This library depends upon `com.android.support:support-annotations`
-from the Android Support Library. Otherwise, it has no external
+This library depends upon `androidx.annotation:annotation`. Otherwise, it has no external
 dependencies.
 
 ## Version
 
-The current version is **0.4.1**. However, this uses a current version of
-`com.android.support:support-annotations`, which (inexplicably) requires
-a `minSdkVersion` of `14`.
-
-If you want to use this library on older devices, either use version `0.2.0`
-or override the library's `minSdkVersion`.
+The current version is **0.5.0**.
 
 ## Demo
 
@@ -152,6 +146,7 @@ Do not ask for help via social media.
 
 ## Release Notes
 
+- v0.5.0: migrated to AndroidX, fixed [null pointer issue](https://github.com/commonsguy/cwac-document/issues/7)
 - v0.4.1: restored `renameTo()` for `SingleDocumentFile`
 - v0.4.0: bug fix, to allow `listFiles()` on a tree to return proper `DocumentFileCompat` objects based on the document's type (regular or tree)
 - v0.3.0: updated to current dependencies, raised `minSdkVersion` back to 14

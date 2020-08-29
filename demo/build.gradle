@@ -33,5 +33,5 @@ dependencies {
   implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
   implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
   debugImplementation project(":document")
-  releaseImplementation 'com.commonsware.cwac:document:0.4.1'
+  releaseImplementation 'com.commonsware.cwac:document:0.5.0'
 }
