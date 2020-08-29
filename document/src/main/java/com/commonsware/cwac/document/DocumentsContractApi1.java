@@ -55,7 +55,7 @@ class DocumentsContractApi1 {
             Log.w(TAG, "Failed query: " + e);
             return defaultValue;
         } finally {
-            c.close();
+            if (c != null) c.close();
         }
     }
 
@@ -75,7 +75,7 @@ class DocumentsContractApi1 {
             Log.w(TAG, "Failed query: " + e);
             return defaultValue;
         } finally {
-            c.close();
+            if (c != null) c.close();
         }
     }
 }
